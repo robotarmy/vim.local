@@ -1,0 +1,76 @@
+let mapleader=','
+
+"Vertical split then hop to new buffer
+:noremap <Leader>v :vsp<cr>
+:noremap <Leader>h :split<cr>
+
+" Status Line *****************************************************************
+set statusline=
+set statusline=%{fugitive#statusline()}
+set statusline+=%=%f\ %(([%l/%L],%c)%)\            " line and column
+set statusline+=%{Fenc()}
+function! Fenc()
+     if &fenc !~ "^$\|utf-8" || &bomb
+         return "[" . &fenc . (&bomb ? "-bom" : "" ) . "]"
+     else
+         return ""
+     endif
+endfunction
+
+" Cursor Movement *************************************************************
+" Make cursor move by visual lines instead of file lines (when wrapping)
+map <up> gk
+map k gk
+imap <up> <C-o>gk
+map <down> gj
+map j gj
+imap <down> <C-o>gj
+map E ge
+
+
+" Cursor highlights ***********************************************************
+set cursorline
+"set cursorcolumn
+
+
+" Searching *******************************************************************
+set hlsearch  " highlight search
+set incsearch  " incremental search, search as you type
+set ignorecase " Ignore case when searching 
+set smartcase " Ignore case when searching lowercase
+
+
+" Line Wrapping ***************************************************************
+set nowrap
+set linebreak  " Wrap at word
+
+
+" Mappings ********************************************************************
+" Professor VIM says '87% of users prefer jj over esc', jj abrams disagrees
+imap jj <Esc>
+imap uu _
+imap hh =>
+imap aa @
+
+" User instead of Netrw when doing an edit /foobar
+let NERDTreeHijackNetrw=1
+
+" Single click for everything
+let NERDTreeMouseMode=1
+
+set sessionoptions=blank,buffers,curdir,folds,help,resize,tabpages,winsize
+
+
+" Misc ************************************************************************
+set backspace=indent,eol,start
+set number " Show line numbers
+set matchpairs+=<:>
+set vb t_vb= " Turn off bell, this could be more annoying, but I'm not sure how
+
+
+" Invisible characters *********************************************************
+set listchars=trail:.,tab:>-,eol:$
+set nolist
+:noremap ,i :set list!<CR> " Toggle invisible chars
+
+
